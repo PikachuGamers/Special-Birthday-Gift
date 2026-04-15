@@ -106,7 +106,7 @@ export default function Home() {
         className="fixed bottom-6 right-6 text-[14px] text-gray-500/80 pointer-events-none z-40 font-bold italic"
         style={{ fontFamily: 'cursive' }}
       >
-        For Tara Govind Ram
+        For TaraGovindRam
       </motion.div>
 
     </div>
