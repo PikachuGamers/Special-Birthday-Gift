@@ -54,6 +54,11 @@ export default function Home() {
         )}
       </div>
 
+      {/* --- CREDIT PART ADDED BACK --- */}
+      <div className="absolute bottom-6 right-6 z-20 pointer-events-none italic text-gray-500/80 text-sm sm:text-base" style={{ fontFamily: 'cursive' }}>
+        @TaraGovindRam
+      </div>
+
       {/* Overlays */}
       <HugOverlay 
         show={showHug} 
