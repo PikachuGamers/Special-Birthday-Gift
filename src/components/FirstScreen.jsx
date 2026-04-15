@@ -42,7 +42,8 @@ export default function FirstScreen({ onNext }) {
                                 transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
                                 className="text-pink-500 relative z-10"
                             >
-                                <img src="/gifs/hello.gif" className="w-36 md:w-40 -mb-7 relative z-10" alt="hello" />
+                                {/* FIX: Removed leading slash from gif path */}
+                                <img src="gifs/hello.gif" className="w-36 md:w-40 -mb-7 relative z-10" alt="hello" />
                             </motion.div>
 
                         </div>
