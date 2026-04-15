@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence } from "framer-motion" // Maine ise framer-motion kar diya hai for stability
 import FirstScreen from "@/components/FirstScreen"
 import SecondScreen from "@/components/SecondScreen"
 import ThirdScreen from "@/components/ThirdScreen"
@@ -33,7 +33,51 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-pink-200 via-rose-100 to-purple-200">
+    <div className="min-h-screen relative overflow-hidden bg-[#fff5f8]">
+      
+      {/* --- PREMIUM GRID DESIGN START --- */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none opacity-[0.15]" 
+        style={{
+          backgroundImage: `
+            linear-gradient(#ffb6c1 1.5px, transparent 1.5px), 
+            linear-gradient(90deg, #ffb6c1 1.5px, transparent 1.5px)
+          `,
+          backgroundSize: '40px 40px'
+        }}
+      ></div>
+      {/* --- PREMIUM GRID DESIGN END --- */}
+
+      {/* --- FLOATING PARTICLES START --- */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-gradient-to-br from-pink-300 to-rose-400 rounded-full blur-[1px]"
+            style={{
+              width: Math.random() * 8 + 4 + 'px',
+              height: Math.random() * 8 + 4 + 'px',
+              left: Math.random() * 100 + '%',
+              top: Math.random() * 100 + '%',
+            }}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 10,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        ))}
+        {/* Glowy blobs for depth */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-pink-200/40 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-200/40 rounded-full blur-[120px]"></div>
+      </div>
+      {/* --- FLOATING PARTICLES END --- */}
 
       <div className="relative z-10 min-h-screen">
         <AnimatePresence mode="wait">
@@ -53,7 +97,7 @@ export default function Home() {
       <HugOverlay show={showHugOverlay} onClose={handleHugClose} />
       <RestartOverlay show={showRestartOverlay} onRestart={handleRestart} />
 
-      {/* Watermark */}
+      {/* Watermark/Credit */}
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -61,8 +105,10 @@ export default function Home() {
           duration: 1,
           delay: 1,
         }}
-        className="fixed bottom-4 right-4 text-[13px] text-black/80 pointer-events-none z-40 font-light">
-        @TaraGovindRam
+        className="fixed bottom-6 right-6 text-[14px] text-gray-600/80 pointer-events-none z-40 font-bold italic"
+        style={{ fontFamily: 'cursive' }}
+      >
+        For TaraGovindRam
       </motion.div>
     </div>
   )
