@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion" // Stable import for deployment
 import { Swiper, SwiperSlide } from "swiper/react"
 import { EffectCreative, Navigation } from "swiper/modules"
 import { Camera, Heart, Sparkles } from "lucide-react"
@@ -9,17 +9,18 @@ import "swiper/css/effect-creative"
 import "swiper/css/navigation"
 
 export default function ThirdScreen({ onNext }) {
+  // FIX: Paths ke aage se '/' hata diya hai taaki images load ho sakein
   const photos = [
-    { src: "/images/1.jpg", alt: "Memory 1" },
-    { src: "/images/2.jpg", alt: "Memory 2" },
-    { src: "/images/3.jpg", alt: "Memory 3" },
-    { src: "/images/4.jpg", alt: "Memory 4" },
+    { src: "images/1.jpg", alt: "Memory 1" },
+    { src: "images/2.jpg", alt: "Memory 2" },
+    { src: "images/3.jpg", alt: "Memory 3" },
+    { src: "images/4.jpg", alt: "Memory 4" },
   ]
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-8">
       
-      {/* Floating photo-themed decorations (Ab yeh visible hai) */}
+      {/* Floating photo-themed decorations */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(6)].map((_, i) => (
           <motion.div
@@ -116,7 +117,8 @@ export default function ThirdScreen({ onNext }) {
               >
                 {/* Premium frame effect */}
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-xl relative">
-                  <img src={photo.src || "/placeholder.svg"} alt={photo.alt} className="w-full h-full object-cover" />
+                  {/* FIX: Path change here */}
+                  <img src={photo.src} alt={photo.alt} className="w-full h-full object-cover" />
 
                   {/* Premium overlay effects */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none"></div>
