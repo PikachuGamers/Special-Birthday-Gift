@@ -9,17 +9,18 @@ import "swiper/css/effect-creative"
 import "swiper/css/navigation"
 
 export default function ThirdScreen({ onNext }) {
+  // FIX: Paths ke aage se '/' hata diya hai taaki GitHub Pages par images load ho sakein
   const photos = [
-    { src: "/images/1.jpg", alt: "Memory 1" },
-    { src: "/images/2.jpg", alt: "Memory 2" },
-    { src: "/images/3.jpg", alt: "Memory 3" },
-    { src: "/images/4.jpg", alt: "Memory 4" },
+    { src: "images/1.jpg", alt: "Memory 1" },
+    { src: "images/2.jpg", alt: "Memory 2" },
+    { src: "images/3.jpg", alt: "Memory 3" },
+    { src: "images/4.jpg", alt: "Memory 4" },
   ]
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-8">
       
-      {/* Floating photo-themed decorations (Ab yeh visible hai) */}
+      {/* Floating photo-themed decorations */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(6)].map((_, i) => (
           <motion.div
@@ -114,14 +115,12 @@ export default function ThirdScreen({ onNext }) {
                 className="w-full h-full bg-gradient-to-br from-pink-300 via-purple-300 to-blue-300 rounded-3xl p-5 shadow-2xl relative overflow-hidden"
                 transition={{ duration: 0.3 }}
               >
-                {/* Premium frame effect */}
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden shadow-xl relative">
-                  <img src={photo.src || "/placeholder.svg"} alt={photo.alt} className="w-full h-full object-cover" />
+                  {/* FIX: Placeholder path also updated */}
+                  <img src={photo.src || "placeholder.svg"} alt={photo.alt} className="w-full h-full object-cover" />
 
-                  {/* Premium overlay effects */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none"></div>
 
-                  {/* Corner decorations with icons */}
                   <div className="absolute top-3 right-3 text-pink-400">
                     <Heart size={16} fill="currentColor" />
                   </div>
@@ -130,7 +129,6 @@ export default function ThirdScreen({ onNext }) {
                   </div>
                 </div>
 
-                {/* Premium shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
 
               </motion.div>
