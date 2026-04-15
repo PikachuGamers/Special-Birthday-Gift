@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion" // Maine 'motion/react' ko 'framer-motion' kar diya hai for stability
+import { motion } from "motion/react"
 import { Heart } from "lucide-react"
 
 export default function FirstScreen({ onNext }) {
@@ -42,8 +42,7 @@ export default function FirstScreen({ onNext }) {
                                 transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
                                 className="text-pink-500 relative z-10"
                             >
-                                {/* FIX: Removed leading slash for GitHub Pages compatibility */}
-                                <img src="gifs/hello.gif" className="w-36 md:w-40 -mb-7 relative z-10" alt="hello" />
+                                <img src="/gifs/hello.gif" className="w-36 md:w-40 -mb-7 relative z-10" alt="hello" />
                             </motion.div>
 
                         </div>
@@ -87,7 +86,6 @@ export default function FirstScreen({ onNext }) {
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8, type: "spring", bounce: 0.5 }}
-                whileHover={{ scale: 1.05 }} // Hover effect added
                 whileTap={{ scale: 0.95 }}
                 onClick={onNext}
                 className="relative px-10 py-4 bg-gradient-to-r from-pink-500 via-purple-600 to-blue-500 text-white text-xl font-semibold rounded-full shadow-2xl overflow-hidden group border border-white/70"
