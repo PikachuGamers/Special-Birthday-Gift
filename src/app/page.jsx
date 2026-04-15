@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion" // Ensure this is framer-motion
 import FirstScreen from "@/components/FirstScreen"
 import SecondScreen from "@/components/SecondScreen"
 import ThirdScreen from "@/components/ThirdScreen"
@@ -12,7 +13,6 @@ export default function Home() {
   const [showHug, setShowHug] = useState(false)
   const [showRestart, setShowRestart] = useState(false)
 
-  // Restart function
   const handleRestart = () => {
     setScreen(1)
     setShowRestart(false)
@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <main className="min-h-screen relative overflow-hidden bg-[#fff5f8]">
       
-      {/* --- GRAPH/GRID DESIGN START --- */}
+      {/* --- BACKGROUND DESIGN (GRAPH/GRID) --- */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-[0.12]" 
         style={{
@@ -33,7 +33,6 @@ export default function Home() {
           backgroundSize: '35px 35px'
         }}
       ></div>
-      {/* --- GRAPH/GRID DESIGN END --- */}
 
       {/* Floating Sparkles in Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -41,21 +40,69 @@ export default function Home() {
         <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-200/30 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Main Content Screens */}
-      <div className="relative z-10 w-full h-full">
-        {screen === 1 && <FirstScreen onNext={() => setScreen(2)} />}
-        {screen === 2 && <SecondScreen onNext={() => setScreen(3)} />}
-        {screen === 3 && <ThirdScreen onNext={() => setScreen(4)} />}
-        {screen === 4 && (
-          <FourthScreen 
-            onShowOverlay={() => setShowHug(true)} 
-            onFinish={() => setShowRestart(true)} 
-          />
-        )}
+      {/* Main Content Screens with Animation Wrapper */}
+      <div className="relative z-10 w-full h-full min-h-screen flex items-center justify-center">
+        {/* AnimatePresence ensures entry/exit animations work */}
+        <AnimatePresence mode="wait">
+          {screen === 1 && (
+            <motion.div 
+              key="screen1"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FirstScreen onNext={() => setScreen(2)} />
+            </motion.div>
+          )}
+
+          {screen === 2 && (
+            <motion.div 
+              key="screen2"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.6 }}
+              className="w-full h-full flex items-center justify-center"
+            >
+              <SecondScreen onNext={() => setScreen(3)} />
+            </motion.div>
+          )}
+
+          {screen === 3 && (
+            <motion.div 
+              key="screen3"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              transition={{ duration: 0.6 }}
+              className="w-full h-full flex items-center justify-center"
+            >
+              <ThirdScreen onNext={() => setScreen(4)} />
+            </motion.div>
+          )}
+
+          {screen === 4 && (
+            <motion.div 
+              key="screen4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FourthScreen 
+                onShowOverlay={() => setShowHug(true)} 
+                onFinish={() => setShowRestart(true)} 
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* --- CREDIT PART ADDED BACK --- */}
-      <div className="absolute bottom-6 right-6 z-20 pointer-events-none italic text-gray-500/80 text-sm sm:text-base" style={{ fontFamily: 'cursive' }}>
+      {/* --- CREDIT PART --- */}
+      <div className="absolute bottom-6 right-6 z-20 pointer-events-none italic text-gray-500/80 text-sm sm:text-base font-bold" style={{ fontFamily: 'cursive' }}>
         @TaraGovindRam
       </div>
 
