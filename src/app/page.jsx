@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "motion/react"
 import FirstScreen from "@/components/FirstScreen"
 import SecondScreen from "@/components/SecondScreen"
 import ThirdScreen from "@/components/ThirdScreen"
@@ -13,6 +13,13 @@ export default function Home() {
   const [currentScreen, setCurrentScreen] = useState(0)
   const [showHugOverlay, setShowHugOverlay] = useState(false)
   const [showRestartOverlay, setShowRestartOverlay] = useState(false)
+
+  const screens = [
+    <FirstScreen key="first" onNext={() => setCurrentScreen(1)} />,
+    <SecondScreen key="second" onNext={() => setCurrentScreen(2)} />,
+    <ThirdScreen key="third" onNext={() => setCurrentScreen(3)} />,
+    <FourthScreen key="fourth" onShowOverlay={() => setShowHugOverlay(true)} />,
+  ]
 
   const handleRestart = () => {
     setCurrentScreen(0)
@@ -26,53 +33,57 @@ export default function Home() {
   }
 
   return (
-    // FIX: Changed from min-h-screen to h-[100dvh] to avoid mobile scrolling issues
-    <main className="h-[100dvh] w-full relative overflow-hidden bg-[#fff5f8] flex flex-col items-center justify-center">
+    // MASTER FIX: h-[100dvh] ensures it fits mobile screens perfectly
+    <div className="h-[100dvh] w-full relative overflow-hidden bg-[#fff5f8]">
       
-      {/* Grid Design Layer */}
+      {/* --- PREMIUM GRID DESIGN --- */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-[0.15]" 
         style={{
           backgroundImage: `
-            linear-gradient(#ffb6c1 1px, transparent 1px), 
-            linear-gradient(90deg, #ffb6c1 1px, transparent 1px)
+            linear-gradient(#ffb6c1 1.5px, transparent 1.5px), 
+            linear-gradient(90deg, #ffb6c1 1.5px, transparent 1.5px)
           `,
-          backgroundSize: '40px 40px'
+          backgroundSize: '35px 35px'
         }}
       ></div>
 
-      {/* Floating Particles */}
+      {/* --- FLOATING PARTICLES --- */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {[...Array(12)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-pink-300 rounded-full blur-[1px]"
+            className="absolute bg-pink-300/40 rounded-full blur-[2px]"
             style={{
-              width: '6px', height: '6px',
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              width: Math.random() * 10 + 5 + 'px',
+              height: Math.random() * 10 + 5 + 'px',
+              left: Math.random() * 100 + '%',
+              top: Math.random() * 100 + '%',
             }}
-            animate={{ y: [0, -60, 0], opacity: [0.2, 0.5, 0.2] }}
-            transition={{ duration: 5 + i, repeat: Infinity }}
+            animate={{
+              y: [0, -100, 0],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
         ))}
       </div>
 
-      {/* Content Wrapper - Standardized Height */}
-      <div className="relative z-10 w-full h-full flex items-center justify-center overflow-hidden px-4">
+      <div className="relative z-10 h-full w-full">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentScreen}
-            initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+            initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-full h-full flex items-center justify-center"
+            exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="h-full w-full flex items-center justify-center will-change-transform"
           >
-            {currentScreen === 0 && <FirstScreen onNext={() => setCurrentScreen(1)} />}
-            {currentScreen === 1 && <SecondScreen onNext={() => setCurrentScreen(2)} />}
-            {currentScreen === 2 && <ThirdScreen onNext={() => setCurrentScreen(3)} />}
-            {currentScreen === 3 && <FourthScreen onShowOverlay={() => setShowHugOverlay(true)} />}
+            {screens[currentScreen]}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -80,10 +91,15 @@ export default function Home() {
       <HugOverlay show={showHugOverlay} onClose={handleHugClose} />
       <RestartOverlay show={showRestartOverlay} onRestart={handleRestart} />
 
-      {/* Credit - Forced Bottom-Right */}
-      <div className="fixed bottom-4 right-4 z-40 italic text-gray-500/80 text-[12px] sm:text-sm font-bold pointer-events-none" style={{ fontFamily: 'cursive' }}>
-        For TaraGovindRam
-      </div>
-    </main>
+      {/* Watermark Fix */}
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="fixed bottom-6 right-6 text-[14px] text-gray-500/80 pointer-events-none z-40 font-bold italic"
+        style={{ fontFamily: 'cursive' }}>
+        For Tara Govind Ram
+      </motion.div>
+    </div>
   )
 }
