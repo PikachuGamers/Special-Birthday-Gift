@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion" // Maine 'motion/react' ko 'framer-motion' kar diya hai for better stability
 import { Heart } from "lucide-react"
 
 export default function FirstScreen({ onNext }) {
@@ -42,7 +42,8 @@ export default function FirstScreen({ onNext }) {
                                 transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
                                 className="text-pink-500 relative z-10"
                             >
-                                <img src="/gifs/hello.gif" className="w-36 md:w-40 -mb-7 relative z-10" alt="hello" />
+                                {/* FIX: Removed leading slash for GitHub Pages/Deployment compatibility */}
+                                <img src="gifs/hello.gif" className="w-36 md:w-40 -mb-7 relative z-10" alt="hello" />
                             </motion.div>
 
                         </div>
