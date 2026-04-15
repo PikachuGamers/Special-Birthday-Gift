@@ -64,7 +64,8 @@ export default function HugOverlay({ show, onClose }) {
               }}
               transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
             >
-              <img src="/gifs/hug.gif" className="w-40 md:w-52" alt="" />
+              {/* FIXED: Removed leading slash for GitHub Pages compatibility */}
+              <img src="gifs/hug.gif" className="w-40 md:w-52" alt="Hug Animation" />
             </motion.div>
 
             <motion.h3
